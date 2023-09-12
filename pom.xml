@@ -42,10 +42,10 @@
 		</dependency>
 
 
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.h2database</groupId>-->
+<!--			<artifactId>h2</artifactId>-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
@@ -68,20 +68,21 @@
 			</exclusions>
 		</dependency>
 
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>junit</groupId>-->
+<!--			<artifactId>junit</artifactId>-->
+<!--		</dependency>-->
 
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-java</artifactId>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.seleniumhq.selenium</groupId>-->
+<!--			<artifactId>selenium-java</artifactId>-->
+<!--		</dependency>-->
 
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>htmlunit-driver</artifactId>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.seleniumhq.selenium</groupId>-->
+<!--			<artifactId>htmlunit-driver</artifactId>-->
+<!--		</dependency>-->
+
 
 	</dependencies>
 
@@ -101,6 +102,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>balloon-shop-devops</finalName>
 	</build>
 
 </project>
