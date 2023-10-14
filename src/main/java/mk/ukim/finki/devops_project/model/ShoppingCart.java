@@ -13,15 +13,14 @@ public class ShoppingCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    private User user;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime dateCreated;
     @ManyToMany
     private List<Order> orders;
 
-    public ShoppingCart(User user, LocalDateTime dateCreated, List<Order> orders) {
-        this.user = user;
+    public ShoppingCart( LocalDateTime dateCreated, List<Order> orders) {
+
         this.dateCreated = dateCreated;
         this.orders = orders;
     }
@@ -30,7 +29,5 @@ public class ShoppingCart {
 
     }
 
-    public ShoppingCart(User user) {
-        this.user=user;
-    }
+
 }

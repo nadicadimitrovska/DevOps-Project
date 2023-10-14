@@ -2,7 +2,6 @@ package mk.ukim.finki.devops_project.web.controller;
 
 import mk.ukim.finki.devops_project.model.Order;
 import mk.ukim.finki.devops_project.service.OrderService;
-import mk.ukim.finki.devops_project.service.UserService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,10 +19,8 @@ import java.util.List;
 public class OrderController {
     private final OrderService orderService;
     //private final ShoppingCartService shoppingCartService;
-    private final UserService userService; //dodadeno vo lab4
-    public OrderController(OrderService orderService, UserService userService) {
+    public OrderController(OrderService orderService) {
         this.orderService = orderService;
-        this.userService = userService;
     }
 
     @GetMapping

@@ -1,10 +1,10 @@
 package mk.ukim.finki.devops_project.service.impl;
 
 import mk.ukim.finki.devops_project.model.Order;
-import mk.ukim.finki.devops_project.model.User;
+
 import mk.ukim.finki.devops_project.model.exceptions.UserNotFoundException;
 import mk.ukim.finki.devops_project.repository.jpa.OrderRepositoryDB;
-import mk.ukim.finki.devops_project.repository.jpa.UserRepositoryDB;
+
 import mk.ukim.finki.devops_project.service.OrderService;
 import org.springframework.stereotype.Service;
 
@@ -21,12 +21,11 @@ public class OrderServiceClass implements OrderService {
 //        this.orderRepository = orderRepository;
 //    }
     private final OrderRepositoryDB orderRepository;
-    private final UserRepositoryDB userRepository;
 
 
-    public OrderServiceClass(OrderRepositoryDB orderRepository, UserRepositoryDB userRepository) {
+
+    public OrderServiceClass(OrderRepositoryDB orderRepository) {
         this.orderRepository = orderRepository;
-        this.userRepository = userRepository;
     }
 
 
@@ -49,10 +48,9 @@ public class OrderServiceClass implements OrderService {
 //        //return orderRepository.save(color, size, clientName, address);
 //    }
     public Order placeOrder(String color, String size, String username, LocalDateTime dateCreated) {
-        User user=this.userRepository.findByUsername(username)
-                .orElseThrow(()->new UserNotFoundException(username));
 
-        return this.orderRepository.save(new Order(color,size,user,dateCreated));
+
+        return this.orderRepository.save(new Order(color,size,dateCreated));
 
     }
     @Override
@@ -62,11 +60,7 @@ public class OrderServiceClass implements OrderService {
         return orderRepository.findAll();
     }
 
-    @Override
-    public List<Order> findByUsername(String username) {
-        Optional<User>user=userRepository.findByUsername(username);
-        return user.map(orderRepository::findAllByUser).orElse(null);
-    }
+
 
     @Override
     public Optional<Order> findById(Long id) {
@@ -83,11 +77,6 @@ public class OrderServiceClass implements OrderService {
 //        return (Optional<Order>) Optional.of(order);
 //    }
 
-    @Override
-    public Order getActiveOrder(String username){
-        User user=this.userRepository.findByUsername(username).orElseThrow(()->new UserNotFoundException(username));
-        return this.orderRepository.findByUser(user).orElseGet(()->{Order order=new Order(user);
-        return this.orderRepository.save(order);});
-    }
+
 
 }

@@ -16,8 +16,7 @@ public class Order {
     private Long orderId;
     private String balloonColor;
     private String balloonSize;
-    @ManyToOne
-    private User user;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @Column(nullable = false)
     private LocalDateTime dateCreated;
@@ -26,26 +25,15 @@ public class Order {
     //private String clientAddress;
 
 
-    public Order(String balloonColor, String balloonSize,User user,LocalDateTime dateCreated) {
+    public Order(String balloonColor, String balloonSize,LocalDateTime dateCreated) {
         this.balloonColor = balloonColor;
         this.balloonSize = balloonSize;
-        this.user=user;
         this.dateCreated=dateCreated;
     }
 
     public Order() {
 
     }
-    public Order(User user){
-        this.user=user;
-    }
-//    public Order(String balloonColor, String balloonSize, String clientName, String clientAddress, Long orderId) {
-//        this.balloonColor = balloonColor;
-//        this.balloonSize = balloonSize;
-//        this.clientName = clientName;
-//        this.clientAddress = clientAddress;
-//        this.orderId = orderId;
-//    }
 
 //public Order(String balloonColor, String balloonSize, Long orderId) {
 //    this.balloonColor = balloonColor;

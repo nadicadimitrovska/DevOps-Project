@@ -3,10 +3,10 @@ version: "3"
 services:
 
   app:
-    image: nadicadimitrovska/devops-project
+    image: nadicadimitrovska/devops-project:latest
     container_name: balloons-devops-project
     ports:
-      - 8080:8080
+      - "8080:8080"
     depends_on:
       - db
     environment:
@@ -15,14 +15,14 @@ services:
       SPRING_DATASOURCE_PASSWORD: wp123
 
   db:
-    image: postgres
+    image: postgres:latest
     container_name: balloons-shop-db
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: wp123
       POSTGRES_DB: balloon-shop
     ports:
-      - 5432:5432
+      - "5432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
