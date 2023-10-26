@@ -1,0 +1,98 @@
+#apiVersion: v1
+#kind: ConfigMap
+#metadata:
+#  name: app-config
+#data:
+#  database_url: "jdbc:postgresql://localhost:5432/balloon-shop"
+#  app_port: "8080"
+#
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: balloon-namespace
+data:
+  POSTGRES_DB: 'balloon-shop'
+  POSTGRES_USER: 'postgres'
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: app-secret
+  namespace: balloon-namespace
+type: Opaque
+data:
+  POSTGRES_USER: cG9zdGdyZXM=
+  POSTGRES_PASSWORD: d3AxMjM=
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: app-pvc
+  namespace: balloon-namespace
+  labels:
+    app: postgres
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: balloon-statefulset
+  namespace: balloon-namespace
+spec:
+  serviceName: devops-project-postgres-service
+  selector:
+    matchLabels:
+      app: postgres
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: postgres
+        namespace: balloon-namespace
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:latest
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: POSTGRES_DB
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: POSTGRES_PASSWORD
+          volumeMounts:
+            - name: devops-project-postgres-data
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: devops-project-postgres-data
+          persistentVolumeClaim:
+            claimName: app-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-service
+  namespace: balloon-namespace
+spec:
+  selector:
+    app: postgres
+  ports:
+    - protocol: TCP
+      port: 5432
+  type: LoadBalancer
