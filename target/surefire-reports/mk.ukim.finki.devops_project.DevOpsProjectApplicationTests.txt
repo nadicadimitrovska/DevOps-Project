@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: mk.ukim.finki.devops_project.DevOpsProjectApplicationTests
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.976 s - in mk.ukim.finki.devops_project.DevOpsProjectApplicationTests
